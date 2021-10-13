@@ -29,9 +29,9 @@ runs:
   steps:
     - name: Add mask
       run: |
-        echo "::add-mask::${{ inputs.ssl-username }}"
-        echo "::add-mask::${{ inputs.ssl-password }}"
-        echo "::add-mask::${{ inputs.ssl-secret }}"
+        echo ::add-mask::${{ inputs.ssl-username }}
+        echo ::add-mask::${{ inputs.ssl-password }}
+        echo ::add-mask::${{ inputs.ssl-secret }}
       shell: bash
     - name: Download and Setup CodeSignTool
       run: |
