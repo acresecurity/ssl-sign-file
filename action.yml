@@ -1,0 +1,58 @@
+name: 'Sign File'
+
+description: 'Sign a file using SSL.com's CodeSignTool'
+
+inputs:
+  file-path:
+    description: 'File to be signed'
+    required: true
+    # default: 'World'
+  ssl-username:
+    description: 'SSL.com account username'
+    required: true
+  ssl-password:
+    description: 'SSL.com account password'
+    required: true
+  ssl-secret:
+    description: 'SSL.com account TOTP secret'
+    required: true
+  is-test:
+    description: 'When true, runs against SSL.com sandbox account'
+    required: false
+    default: false
+outputs:
+  random-number:
+    description: 'Random number'
+    value: ${{ steps.random-number-generator.outputs.random-id }}
+  signed-file:
+    description: 'Signed File'
+    value: ${{ steps.random-number-generator.outputs.random-id }}
+runs:
+  using: 'composite'
+  env:
+      SSL_OUTPUT_DIR: 'ssl-output'
+  steps:
+    - name: Download and Setup CodeSignTool
+      run: |
+        curl https://www.ssl.com/download/29764/ --output CodeSignTool.zip
+        sudo apt-get install -y unzip
+        sudo apt-get install -y default-jre
+        unzip -o CodeSignTool.zip
+      shell: bash
+    - name: Sign File(s)
+      run: |
+        mkdir -p "${{ env.SSL_OUTPUT_DIR }}"
+        if [ ${{ inputs.is-test }} = true ] ; then
+
+          # TESTING ONLY - Sandbox creds
+
+          printf "CLIENT_ID=qOUeZCCzSqgA93acB3LYq6lBNjgZdiOxQc-KayC3UMw\nOAUTH2_ENDPOINT=https://oauth-sandbox.ssl.com/oauth2/token\nCSC_API_ENDPOINT=https://cs-try.ssl.com\nTSA_URL=http://ts.ssl.com" > 'conf/code_sign_tool.properties'
+          bash -eu CodeSignTool.sh sign -username="esigner_demo" -password="esignerDemo#1" -totp_secret="RDXYgV9qju+6/7GnMf1vCbKexXVJmUVr+86Wq/8aIGg=" -input_file_path="../miscellaneous/fake-file.ps1" -output_dir_path="${{ env.SSL_OUTPUT_DIR }}"
+        
+        else
+
+          # SINGLE FILE
+          bash -eu CodeSignTool.sh sign -username="${{secrets.SSL_USERNAME}}" -password="${{secrets.SSL_PASSWORD}}" -totp_secret="${{secrets.SSL_TOTP}}" -input_file_path="../miscellaneous/fake-file.ps1" -output_dir_path="${{ env.SSL_OUTPUT_DIR }}"
+        
+        fi
+      shell: bash
