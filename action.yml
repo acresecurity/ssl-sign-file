@@ -27,6 +27,12 @@ outputs:
 runs:
   using: 'composite'
   steps:
+    - name: Add masks
+      run: |
+        echo ::add-mask::${{ inputs.ssl-username }} > /dev/null
+        echo ::add-mask::${{ inputs.ssl-password }} > /dev/null
+        echo ::add-mask::${{ inputs.ssl-secret-password }} > /dev/null
+        echo ::add-mask::totp_secret > /dev/null
     - name: Download and Setup CodeSignTool
       run: |
         curl https://www.ssl.com/download/29764/ --output CodeSignTool.zip
