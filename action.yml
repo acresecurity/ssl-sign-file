@@ -53,5 +53,7 @@ runs:
           bash -eu CodeSignTool.sh sign -username="${{ inputs.ssl-username }}" -password="${{ inputs.ssl-password }}" -totp_secret="${{ inputs.ssl-secret-password }}" -input_file_path="${{ inputs.file-path }}" -output_dir_path="ssl-output"
 
         fi
+
+        sudo cp -r ./ssl-output/* ../
       working-directory: ./CodeSignTool-v1.2.0
       shell: bash
