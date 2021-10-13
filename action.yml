@@ -42,12 +42,12 @@ runs:
           # TESTING ONLY - Sandbox creds
 
           printf "CLIENT_ID=qOUeZCCzSqgA93acB3LYq6lBNjgZdiOxQc-KayC3UMw\nOAUTH2_ENDPOINT=https://oauth-sandbox.ssl.com/oauth2/token\nCSC_API_ENDPOINT=https://cs-try.ssl.com\nTSA_URL=http://ts.ssl.com" > 'conf/code_sign_tool.properties'
-          bash -eu CodeSignTool.sh sign -username="esigner_demo" -password="esignerDemo#1" -totp_secret-password="RDXYgV9qju+6/7GnMf1vCbKexXVJmUVr+86Wq/8aIGg=" -input_file_path="../miscellaneous/fake-file.ps1" -output_dir_path="ssl-output"
+          bash -eu CodeSignTool.sh sign -username="esigner_demo" -password="esignerDemo#1" -totp_secret="RDXYgV9qju+6/7GnMf1vCbKexXVJmUVr+86Wq/8aIGg=" -input_file_path="../miscellaneous/fake-file.ps1" -output_dir_path="ssl-output"
 
         else
 
           # SINGLE FILE
-          bash -eu CodeSignTool.sh sign -username="${{ inputs.ssl-username }}" -password="${{ inputs.ssl-password }}" -totp_secret-password="${{ inputs.ssl-secret }}" -input_file_path="${{ inputs.file-path }}" -output_dir_path="ssl-output"
+          bash -eu CodeSignTool.sh sign -username="${{ inputs.ssl-username }}" -password="${{ inputs.ssl-password }}" -totp_secret="${{ inputs.ssl-secret-password }}" -input_file_path="${{ inputs.file-path }}" -output_dir_path="ssl-output"
 
         fi
       working-directory: ./CodeSignTool-v1.2.0
