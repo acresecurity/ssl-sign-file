@@ -32,6 +32,7 @@ runs:
         echo "::add-mask::${{ inputs.ssl-username }}"
         echo "::add-mask::${{ inputs.ssl-password }}"
         echo "::add-mask::${{ inputs.ssl-secret }}"
+      shell: bash
     - name: Download and Setup CodeSignTool
       run: |
         curl https://www.ssl.com/download/29764/ --output CodeSignTool.zip
