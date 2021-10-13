@@ -29,9 +29,6 @@ runs:
   steps:
     - name: Add mask
       run: |
-        ::add-mask::${{ inputs.ssl-username }}
-        ::add-mask::${{ inputs.ssl-password }}
-        ::add-mask::${{ inputs.ssl-secret }}
         echo ::add-mask:username
         echo ::add-mask::totp_secret
       shell: bash
