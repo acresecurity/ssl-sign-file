@@ -29,10 +29,10 @@ runs:
   steps:
     - name: Add masks
       run: |
-        echo ::add-mask::${{ inputs.ssl-username }} > /dev/null
-        echo ::add-mask::${{ inputs.ssl-password }} > /dev/null
-        echo ::add-mask::${{ inputs.ssl-secret-password }} > /dev/null
-        echo ::add-mask::totp_secret > /dev/null
+        echo ::add-mask::${{ inputs.ssl-username }}
+        echo ::add-mask::${{ inputs.ssl-password }}
+        echo ::add-mask::${{ inputs.ssl-secret-password }}
+        echo ::add-mask::totp_secret
       shell: bash
     - name: Download and Setup CodeSignTool
       run: |
