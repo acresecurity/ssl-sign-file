@@ -33,9 +33,17 @@ runs:
     - name: Download and Setup CodeSignTool
       run: |
         curl https://www.ssl.com/download/29764/ --output CodeSignTool.zip
-        sudo apt-get install -y unzip
-        sudo apt-get install -y default-jre
-        unzip -o CodeSignTool.zip
+
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          choco install javaruntime
+          Expand-Archive iPath CodeSignTool.zip -DestinationPath .\ -Force
+
+        else
+          sudo apt-get install -y unzip
+          sudo apt-get install -y default-jre
+          unzip -o CodeSignTool.zip
+        fi
+
       shell: bash
     - name: Sign File(s)
       run: |
