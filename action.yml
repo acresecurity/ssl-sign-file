@@ -84,7 +84,11 @@ runs:
       shell: bash
     - name: Sign File(s) CMD
       run: |
-        if ($RUNNER_OS" == "Windows")
+        Write-Host $RUNNER_OS
+        Write-Host %$RUNNER_OS%
+        Write-Host %RUNNER_OS%
+
+        if ($RUNNER_OS == "Windows")
         {
           dir
           cd CodeSignTool-v1.2.0-windows
