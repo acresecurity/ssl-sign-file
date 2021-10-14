@@ -3,23 +3,23 @@ Sign a file using SSL.com's CodeSignTool
 
 ## Inputs
 
-### `file-path`
+### `filepath`
 
 **Required** File to be signed.
 
-### `ssl-username`
+### `sslusername`
 
 **Required** SSL.com account username.
 
-### `ssl-password`
+### `sslpassword`
 
 **Required** SSL.com account password.
 
-### `ssl-secret-password`
+### `sslsecretpassword`
 
 **Required** SSL.com account TOTP secret.
 
-### `is-test`
+### `istest`
 
 When true, runs against SSL.com sandbox account.  Default `false`.
 
@@ -31,8 +31,8 @@ When true, runs against SSL.com sandbox account.  Default `false`.
 
         uses: feenicsinc/ssl-sign-file@v1
         with:
-          file-path: '../miscellaneous/fake-file.ps1'
-          ssl-username: 'fake-un'
-          ssl-password: 'not-real'
-          ssl-secret-password: 'abc123xyz789'
-          is-test: true
+          filepath: '../miscellaneous/fake-file.ps1'
+          sslusername: 'fake-un'
+          sslpassword: 'not-real'
+          sslsecretpassword: 'abc123xyz789'
+          istest: true
