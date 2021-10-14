@@ -85,8 +85,11 @@ runs:
     - name: Sign File(s) PWSH
       run: |
         Write-Host $Env:OS
-        Write-Host $INPUT_SSLUSERNAME
-        Write-Host $Env:INPUT_SSLUSERNAME
+        Write-Host "----------"
+        Get-Item -Path Env:* | Get-Member
+        Write-Host "----------"
+        Write-Host $Env:*
+        Write-Host "----------"
 
 
         if ($Env:OS -like "*Windows*")
