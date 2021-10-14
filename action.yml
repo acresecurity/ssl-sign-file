@@ -86,15 +86,18 @@ runs:
       env:
         FILE_PATH: ${{ inputs.filepath }}
         SSL_USERNAME: ${{ inputs.sslusername }}
+        SSL_PASSWORD: ${{ inputs.sslpassword }}
+        SSL_SECRET_PASSWORD: ${{ inputs.sslsecretpassword }}
+        IS_TEST: ${{ inputs.istest }}
       run: |
         Write-Host $Env:OS
         Write-Host "----------"
         dir env:
         Write-Host "----------"
         Write-Host "----------"
-        Write-Host $Env:SSL_USERNAME
+        Write-Host $Env:FILE_PATH
         Write-Host "----------"
-        Write-Host $SSL_USERNAME
+        Write-Host $Env:IS_TEST
         Write-Host "----------"
 
 
@@ -107,7 +110,7 @@ runs:
           mkdir -p "ssl-output"
           dir
 
-          if ($inputs:istest -eq $true)
+          if ($Env:IS_TEST -eq $true)
           {
             # TESTING ONLY - Sandbox creds    
 
@@ -117,7 +120,7 @@ runs:
           else
           {
             # SINGLE FILE
-            .\CodeSignTool.bat sign -username="$inputs:sslusername" -password="$inputs:sslpassword" -totp_secret="$inputs:sslsecretpassword" -input_file_path="$inputs:filepath" -output_dir_path="ssl-output"
+            .\CodeSignTool.bat sign -username="$Env:SSL_USERNAME" -password="$Env:SSL_PASSWORD" -totp_secret="$Env:SSL_SECRET_PASSWORD" -input_file_path="$Env:FILE_PATH" -output_dir_path="ssl-output"
 
           }
           # dir ..\
