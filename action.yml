@@ -84,11 +84,11 @@ runs:
       shell: bash
     - name: Sign File(s) PWSH
       run: |
-        Write-Host $([Environment]::MachineName)
-        Write-Host %$([Environment]::MachineName)%
-        Write-Host %([Environment]::MachineName)%
+        Write-Host $Env:OS
+        Write-Host %$Env:OS%
+        Write-Host %Env:OS%
 
-        if ($([Environment]::MachineName) -eq "Windows")
+        if ($Env:OS -eq "Windows")
         {
           dir
           cd CodeSignTool-v1.2.0-windows
