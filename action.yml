@@ -82,13 +82,13 @@ runs:
           sudo cp -r ./ssl-output/* ../
         fi
       shell: bash
-    - name: Sign File(s) CMD
+    - name: Sign File(s) PWSH
       run: |
-        Write-Host $RUNNER_OS
-        Write-Host %$RUNNER_OS%
-        Write-Host %RUNNER_OS%
+        Write-Host $([Environment]::MachineName)
+        Write-Host %$([Environment]::MachineName)%
+        Write-Host %([Environment]::MachineName)%
 
-        if ($RUNNER_OS == "Windows")
+        if ($([Environment]::MachineName) -eq "Windows")
         {
           dir
           cd CodeSignTool-v1.2.0-windows
@@ -97,7 +97,7 @@ runs:
           mkdir -p "ssl-output"
           dir
 
-          if ($inputs:istest == true)
+          if ($inputs:istest -eq true)
           {
             # TESTING ONLY - Sandbox creds    
 
