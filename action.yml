@@ -84,10 +84,18 @@ runs:
       shell: bash
     - name: Sign File(s) PWSH
       run: |
+        Write-Host $runner:os
         Write-Host $Env:OS
         Write-Host $inputs:istest
         Write-Host $Env:inputs
         Write-Host $Env:inputs:istest
+        Write-Host $inputs:sslusername
+        Write-Host $Env:inputs
+        Write-Host $Env:inputs:sslusername
+        Write-Host $context
+        Write-Host $context:inputs
+        Write-Host $context:inputs:sslusername
+
 
         if ($Env:OS -like "*Windows*")
         {
@@ -103,12 +111,12 @@ runs:
             # TESTING ONLY - Sandbox creds    
 
             printf "CLIENT_ID=qOUeZCCzSqgA93acB3LYq6lBNjgZdiOxQc-KayC3UMw\nOAUTH2_ENDPOINT=https://oauth-sandbox.ssl.com/oauth2/token\nCSC_API_ENDPOINT=https://cs-try.ssl.com\nTSA_URL=http://ts.ssl.com" > 'conf/code_sign_tool.properties'
-            CodeSignTool.bat sign -username="esigner_demo" -password="esignerDemo#1" -totp_secret="RDXYgV9qju+6/7GnMf1vCbKexXVJmUVr+86Wq/8aIGg=" -input_file_path="../miscellaneous/fake-file.ps1" -output_dir_path="ssl-output"  
+            .\CodeSignTool.bat sign -username="esigner_demo" -password="esignerDemo#1" -totp_secret="RDXYgV9qju+6/7GnMf1vCbKexXVJmUVr+86Wq/8aIGg=" -input_file_path="../miscellaneous/fake-file.ps1" -output_dir_path="ssl-output"  
           }
           else
           {
             # SINGLE FILE
-            CodeSignTool.bat sign -username="$inputs:sslusername" -password="$inputs:sslpassword" -totp_secret="$inputs:sslsecretpassword" -input_file_path="$inputs:filepath" -output_dir_path="ssl-output"
+            .\CodeSignTool.bat sign -username="$inputs:sslusername" -password="$inputs:sslpassword" -totp_secret="$inputs:sslsecretpassword" -input_file_path="$inputs:filepath" -output_dir_path="ssl-output"
 
           }
           dir ..\
