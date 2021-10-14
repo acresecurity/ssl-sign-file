@@ -88,6 +88,8 @@ runs:
         Write-Host "----------"
         Get-Item -Path Env:* | Get-Member
         Write-Host "----------"
+        Write-Host (Get-Item -Path Env:* | Get-Member)
+        Write-Host "----------"
 
 
         if ($Env:OS -like "*Windows*")
@@ -112,8 +114,8 @@ runs:
             .\CodeSignTool.bat sign -username="$inputs:sslusername" -password="$inputs:sslpassword" -totp_secret="$inputs:sslsecretpassword" -input_file_path="$inputs:filepath" -output_dir_path="ssl-output"
 
           }
-          dir ..\
-          Copy-Item -Path ".\ssl-output\*" -Destination "..\" -Recurse
-          dir ..\
+          # dir ..\
+          # Copy-Item -Path ".\ssl-output\*" -Destination "..\" -Recurse
+          # dir ..\
         }
       shell: pwsh
