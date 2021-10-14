@@ -90,25 +90,13 @@ runs:
         SSL_SECRET_PASSWORD: ${{ inputs.sslsecretpassword }}
         IS_TEST: ${{ inputs.istest }}
       run: |
-        Write-Host $Env:OS
-        Write-Host "----------"
-        dir env:
-        Write-Host "----------"
-        Write-Host "----------"
-        Write-Host $Env:FILE_PATH
-        Write-Host "----------"
-        Write-Host $Env:IS_TEST
-        Write-Host "----------"
-
+        Write-Host $Env:RUNNER_OS
 
         if ($Env:OS -like "*Windows*")
         {
-          dir
           cd CodeSignTool-v1.2.0-windows
           
-          dir
           mkdir -p "ssl-output"
-          dir
 
           if ($Env:IS_TEST -eq $true)
           {
@@ -123,8 +111,6 @@ runs:
             .\CodeSignTool.bat sign -username="$Env:SSL_USERNAME" -password="$Env:SSL_PASSWORD" -totp_secret="$Env:SSL_SECRET_PASSWORD" -input_file_path="$Env:FILE_PATH" -output_dir_path="ssl-output"
 
           }
-          # dir ..\
-          # Copy-Item -Path ".\ssl-output\*" -Destination "..\" -Recurse
-          # dir ..\
+          Copy-Item -Path ".\ssl-output\*" -Destination "..\" -Recurse
         }
       shell: pwsh
