@@ -55,37 +55,58 @@ runs:
         fi
 
       shell: bash
-    - name: Sign File(s)
+    - name: Sign File(s) Bash
       run: |
-        dir
-        if [ "$RUNNER_OS" == "Windows" ]; then
-          cd CodeSignTool-v1.2.0-windows
-        else
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          dir
           cd CodeSignTool-v1.2.0
-        fi
 
-        dir
-        mkdir -p "ssl-output"
-        dir
+          dir
+          mkdir -p "ssl-output"
+          dir
 
-        if [ ${{ inputs.is-test }} = true ] ; then
+          if [ ${{ inputs.is-test }} = true ] ; then
 
-          # TESTING ONLY - Sandbox creds
+            # TESTING ONLY - Sandbox creds
 
-
-          printf "CLIENT_ID=qOUeZCCzSqgA93acB3LYq6lBNjgZdiOxQc-KayC3UMw\nOAUTH2_ENDPOINT=https://oauth-sandbox.ssl.com/oauth2/token\nCSC_API_ENDPOINT=https://cs-try.ssl.com\nTSA_URL=http://ts.ssl.com" > 'conf/code_sign_tool.properties'
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            CodeSignTool.bat sign -username="esigner_demo" -password="esignerDemo#1" -totp_secret="RDXYgV9qju+6/7GnMf1vCbKexXVJmUVr+86Wq/8aIGg=" -input_file_path="../miscellaneous/fake-file.ps1" -output_dir_path="ssl-output"
-          else
+            printf "CLIENT_ID=qOUeZCCzSqgA93acB3LYq6lBNjgZdiOxQc-KayC3UMw\nOAUTH2_ENDPOINT=https://oauth-sandbox.ssl.com/oauth2/token\nCSC_API_ENDPOINT=https://cs-try.ssl.com\nTSA_URL=http://ts.ssl.com" > 'conf/code_sign_tool.properties'
             bash -eu CodeSignTool.sh sign -username="esigner_demo" -password="esignerDemo#1" -totp_secret="RDXYgV9qju+6/7GnMf1vCbKexXVJmUVr+86Wq/8aIGg=" -input_file_path="../miscellaneous/fake-file.ps1" -output_dir_path="ssl-output"
+
+          else
+
+            # SINGLE FILE
+            bash -eu CodeSignTool.sh sign -username="${{ inputs.ssl-username }}" -password="${{ inputs.ssl-password }}" -totp_secret="${{ inputs.ssl-secret-password }}" -input_file_path="${{ inputs.file-path }}" -output_dir_path="ssl-output"
+
           fi
 
-        else
+          sudo cp -r ./ssl-output/* ../
+        fi
+      shell: bash
+    - name: Sign File(s) CMD
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          dir
+          cd CodeSignTool-v1.2.0-windows
+          
+          dir
+          mkdir -p "ssl-output"
+          dir
 
-          # SINGLE FILE
-          bash -eu CodeSignTool.sh sign -username="${{ inputs.ssl-username }}" -password="${{ inputs.ssl-password }}" -totp_secret="${{ inputs.ssl-secret-password }}" -input_file_path="${{ inputs.file-path }}" -output_dir_path="ssl-output"
+          if [ ${{ inputs.is-test }} = true ] ; then
+
+            # TESTING ONLY - Sandbox creds
+
+            printf "CLIENT_ID=qOUeZCCzSqgA93acB3LYq6lBNjgZdiOxQc-KayC3UMw\nOAUTH2_ENDPOINT=https://oauth-sandbox.ssl.com/oauth2/token\nCSC_API_ENDPOINT=https://cs-try.ssl.com\nTSA_URL=http://ts.ssl.com" > 'conf/code_sign_tool.properties'
+            CodeSignTool.bat sign -username="esigner_demo" -password="esignerDemo#1" -totp_secret="RDXYgV9qju+6/7GnMf1vCbKexXVJmUVr+86Wq/8aIGg=" -input_file_path="../miscellaneous/fake-file.ps1" -output_dir_path="ssl-output"
+
+          else
+
+            # SINGLE FILE
+            bash -eu CodeSignTool.sh sign -username="${{ inputs.ssl-username }}" -password="${{ inputs.ssl-password }}" -totp_secret="${{ inputs.ssl-secret-password }}" -input_file_path="${{ inputs.file-path }}" -output_dir_path="ssl-output"
+
+          fi
+
+          sudo cp -r ./ssl-output/* ../
 
         fi
-
-        sudo cp -r ./ssl-output/* ../
-      shell: bash
+      shell: cmd
