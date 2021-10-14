@@ -35,8 +35,9 @@ runs:
         curl https://www.ssl.com/download/29764/ --output CodeSignTool.zip
 
         if [ "$RUNNER_OS" == "Windows" ]; then
+          mkdir CodeSignTool-v1.2.0
           choco install javaruntime
-          7z e CodeSignTool.zip
+          7z e CodeSignTool.zip -o .\CodeSignTool-v1.2.0
         else
           sudo apt-get install -y unzip
           sudo apt-get install -y default-jre
