@@ -3,20 +3,20 @@ name: 'Sign File'
 description: "Sign a file using SSL.com's CodeSignTool"
 
 inputs:
-  file-path:
+  filepath:
     description: 'File to be signed'
     required: true
     # default: 'World'
-  ssl-username:
+  sslusername:
     description: 'SSL.com account username'
     required: true
-  ssl-password:
+  sslpassword:
     description: 'SSL.com account password'
     required: true
-  ssl-secret-password:
+  sslsecretpassword:
     description: 'SSL.com account TOTP secret'
     required: true
-  is-test:
+  istest:
     description: 'When true, runs against SSL.com sandbox account'
     required: false
     default: false
@@ -25,9 +25,9 @@ runs:
   steps:
     - name: Add masks
       run: |
-        echo ::add-mask::${{ inputs.ssl-username }}
-        echo ::add-mask::${{ inputs.ssl-password }}
-        echo ::add-mask::${{ inputs.ssl-secret-password }}
+        echo ::add-mask::${{ inputs.sslusername }}
+        echo ::add-mask::${{ inputs.sslpassword }}
+        echo ::add-mask::${{ inputs.sslsecretpassword }}
         echo ::add-mask::totp_secret
       shell: bash
     - name: Download and Setup CodeSignTool
@@ -65,7 +65,7 @@ runs:
           mkdir -p "ssl-output"
           dir
 
-          if [ ${{ inputs.is-test }} = true ] ; then
+          if [ ${{ inputs.istest }} = true ] ; then
 
             # TESTING ONLY - Sandbox creds
 
@@ -75,7 +75,7 @@ runs:
           else
 
             # SINGLE FILE
-            bash -eu CodeSignTool.sh sign -username="${{ inputs.ssl-username }}" -password="${{ inputs.ssl-password }}" -totp_secret="${{ inputs.ssl-secret-password }}" -input_file_path="${{ inputs.file-path }}" -output_dir_path="ssl-output"
+            bash -eu CodeSignTool.sh sign -username="${{ inputs.sslusername }}" -password="${{ inputs.sslpassword }}" -totp_secret="${{ inputs.sslsecretpassword }}" -input_file_path="${{ inputs.filepath }}" -output_dir_path="ssl-output"
 
           fi
 
@@ -97,7 +97,7 @@ runs:
           mkdir -p "ssl-output"
           dir
 
-          if ($inputs:is-test == true)
+          if ($inputs:istest == true)
           {
             # TESTING ONLY - Sandbox creds    
 
@@ -107,7 +107,7 @@ runs:
           else
           {
             # SINGLE FILE
-            bash -eu CodeSignTool.sh sign -username="$inputs:ssl-username" -password="$inputs:ssl-password" -totp_secret="$inputs:ssl-secret-password" -input_file_path="$inputs:file-path" -output_dir_path="ssl-output"
+            bash -eu CodeSignTool.sh sign -username="$inputs:sslusername" -password="$inputs:sslpassword" -totp_secret="$inputs:sslsecretpassword" -input_file_path="$inputs:filepath" -output_dir_path="ssl-output"
 
           }
 
