@@ -36,7 +36,10 @@ runs:
 
         if [ "$RUNNER_OS" == "Windows" ]; then
           choco install javaruntime
+          Add-Type -Assembly 'System.IO.Compression.FileSystem'
           Expand-Archive iPath CodeSignTool.zip -DestinationPath .\ -Force
+
+          [System.IO.Compression.ZipFileExtensions]::ExtractToDirectory('CodeSignTool.zip', '.\')
 
         else
           sudo apt-get install -y unzip
