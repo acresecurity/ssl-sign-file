@@ -38,7 +38,7 @@ runs:
           mkdir CodeSignTool-v1.2.0
           dir
           choco install javaruntime
-          7z x CodeSignTool.zip -o*
+          7z x CodeSignTool.zip -oCodeSignTool-v1.2.0
         else
           sudo apt-get install -y unzip
           sudo apt-get install -y default-jre
@@ -46,12 +46,14 @@ runs:
         fi
 
         dir
+        cd CodeSignTool-v1.2.0
+        dir
 
       shell: bash
     - name: Sign File(s)
       run: |
+        dir
         mkdir -p "ssl-output"
-        cd ..
         dir
         if [ ${{ inputs.is-test }} = true ] ; then
 
