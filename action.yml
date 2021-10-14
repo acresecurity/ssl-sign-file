@@ -88,7 +88,6 @@ runs:
         Write-Host "----------"
         dir env:
         Write-Host "----------"
-        $env:path – split ‘;’
         Write-Host "----------"
         Get-ChildItem env:
         Write-Host "----------"
