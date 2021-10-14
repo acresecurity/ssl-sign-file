@@ -86,6 +86,8 @@ runs:
       run: |
         Write-Host $Env:OS
         Write-Host $inputs:istest
+        Write-Host $Env:inputs
+        Write-Host $Env:inputs:istest
 
         if ($Env:OS -like "*Windows*")
         {
@@ -106,10 +108,11 @@ runs:
           else
           {
             # SINGLE FILE
-            bash -eu CodeSignTool.sh sign -username="$inputs:sslusername" -password="$inputs:sslpassword" -totp_secret="$inputs:sslsecretpassword" -input_file_path="$inputs:filepath" -output_dir_path="ssl-output"
+            CodeSignTool.bat sign -username="$inputs:sslusername" -password="$inputs:sslpassword" -totp_secret="$inputs:sslsecretpassword" -input_file_path="$inputs:filepath" -output_dir_path="ssl-output"
 
           }
-
-          sudo cp -r ./ssl-output/* ../
+          dir ..\
+          Copy-Item -Path ".\ssl-output\*" -Destination "..\" -Recurse
+          dir ..\
         }
       shell: pwsh
