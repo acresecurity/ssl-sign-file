@@ -38,25 +38,36 @@ runs:
           dir
           choco install javaruntime
           7z x CodeSignTool.zip
-
+          
+          dir
+          cd CodeSignTool-v1.2.0-windows
+          dir
         else
           curl https://www.ssl.com/download/29764/ --output CodeSignTool.zip
           
           sudo apt-get install -y unzip
           sudo apt-get install -y default-jre
           unzip -o CodeSignTool.zip
-        fi
 
-        dir
-        cd CodeSignTool-v1.2.0
-        dir
+          dir
+          cd CodeSignTool-v1.2.0
+          dir
+        fi
 
       shell: bash
     - name: Sign File(s)
       run: |
         dir
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          cd CodeSignTool-v1.2.0-windows
+        else
+          cd CodeSignTool-v1.2.0
+        fi
+
+        dir
         mkdir -p "ssl-output"
         dir
+
         if [ ${{ inputs.is-test }} = true ] ; then
 
           # TESTING ONLY - Sandbox creds
@@ -76,5 +87,4 @@ runs:
         fi
 
         sudo cp -r ./ssl-output/* ../
-      working-directory: ./CodeSignTool-v1.2.0
       shell: bash
