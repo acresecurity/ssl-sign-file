@@ -43,10 +43,13 @@ runs:
           unzip -o CodeSignTool.zip
         fi
 
+        dir
+
       shell: bash
     - name: Sign File(s)
       run: |
         mkdir -p "ssl-output"
+        dir
         if [ ${{ inputs.is-test }} = true ] ; then
 
           # TESTING ONLY - Sandbox creds
