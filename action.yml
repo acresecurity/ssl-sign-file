@@ -97,7 +97,7 @@ runs:
           mkdir -p "ssl-output"
           dir
 
-          if ($inputs.is-test == true)
+          if ($inputs:is-test == true)
           {
             # TESTING ONLY - Sandbox creds    
 
@@ -107,7 +107,7 @@ runs:
           else
           {
             # SINGLE FILE
-            bash -eu CodeSignTool.sh sign -username="${{ inputs.ssl-username }}" -password="${{ inputs.ssl-password }}" -totp_secret="${{ inputs.ssl-secret-password }}" -input_file_path="${{ inputs.file-path }}" -output_dir_path="ssl-output"
+            bash -eu CodeSignTool.sh sign -username="${{ inputs:ssl-username }}" -password="${{ inputs:ssl-password }}" -totp_secret="${{ inputs:ssl-secret-password }}" -input_file_path="${{ inputs:file-path }}" -output_dir_path="ssl-output"
 
           }
 
