@@ -39,9 +39,10 @@ runs:
           if [ ! -d "CodeSignTool-v1.2.0-windows" ]; then
             curl https://www.ssl.com/download/29773/ --output CodeSignTool.zip
             7z x CodeSignTool.zip
+            cd CodeSignTool-v1.2.0-windows
+
+            mkdir -p "ssl-output"
           fi
-          
-          cd CodeSignTool-v1.2.0-windows
         else
           curl https://www.ssl.com/download/29764/ --output CodeSignTool.zip
           
@@ -49,21 +50,14 @@ runs:
           sudo apt-get install -y default-jre
           unzip -o CodeSignTool.zip
 
-          dir
-          cd CodeSignTool-v1.2.0
-          dir
+          mkdir -p "ssl-output"
         fi
 
       shell: bash
     - name: Sign File(s) Bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          dir
           cd CodeSignTool-v1.2.0
-
-          dir
-          mkdir -p "ssl-output"
-          dir
 
           if [ ${{ inputs.istest }} = true ] ; then
 
@@ -95,8 +89,6 @@ runs:
         if ($Env:RUNNER_OS -eq "Windows")
         {
           cd CodeSignTool-v1.2.0-windows
-          
-          mkdir -p "ssl-output"
 
           if ($Env:IS_TEST -eq $true)
           {
