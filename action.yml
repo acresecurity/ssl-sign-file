@@ -36,6 +36,7 @@ runs:
 
         if [ "$RUNNER_OS" == "Windows" ]; then
           mkdir CodeSignTool-v1.2.0
+          dir
           choco install javaruntime
           7z x CodeSignTool.zip -o*
         else
@@ -50,6 +51,7 @@ runs:
     - name: Sign File(s)
       run: |
         mkdir -p "ssl-output"
+        cd ..
         dir
         if [ ${{ inputs.is-test }} = true ] ; then
 
