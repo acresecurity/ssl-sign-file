@@ -84,17 +84,9 @@ runs:
       shell: bash
     - name: Sign File(s) PWSH
       run: |
-        Write-Host $runner:os
         Write-Host $Env:OS
-        Write-Host $inputs:istest
-        Write-Host $Env:inputs
-        Write-Host $Env:inputs:istest
-        Write-Host $inputs:sslusername
-        Write-Host $Env:inputs
-        Write-Host $Env:inputs:sslusername
-        Write-Host $context
-        Write-Host $context:inputs
-        Write-Host $context:inputs:sslusername
+        Write-Host $INPUT_SSLUSERNAME
+        Write-Host $Env:INPUT_SSLUSERNAME
 
 
         if ($Env:OS -like "*Windows*")
