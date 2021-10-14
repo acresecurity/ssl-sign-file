@@ -86,9 +86,13 @@ runs:
       run: |
         Write-Host $Env:OS
         Write-Host "----------"
-        Get-Item -Path Env:* | Get-Member
+        dir env:
         Write-Host "----------"
-        Write-Host (Get-Item -Path Env:* | Get-Member)
+        Write-Host ($env:path – split ‘;’)
+        Write-Host "----------"
+        Get-ChildItem env:
+        Write-Host "----------"
+        Write-Host (Get-ChildItem env:)
         Write-Host "----------"
 
 
