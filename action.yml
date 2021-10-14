@@ -22,9 +22,6 @@ inputs:
     default: false
 runs:
   using: 'composite'
-  env:
-    FILE_PATH: ${{ inputs.filepath }}
-    SSL_USERNAME: ${{ inputs.sslusername }}
   steps:
     - name: Add masks
       run: |
@@ -125,3 +122,6 @@ runs:
           # dir ..\
         }
       shell: pwsh
+  env:
+    FILE_PATH: ${{ inputs.filepath }}
+    SSL_USERNAME: ${{ inputs.sslusername }}
