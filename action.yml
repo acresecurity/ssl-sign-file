@@ -88,8 +88,6 @@ runs:
         Write-Host "----------"
         Get-Item -Path Env:* | Get-Member
         Write-Host "----------"
-        Write-Host $Env:*
-        Write-Host "----------"
 
 
         if ($Env:OS -like "*Windows*")
