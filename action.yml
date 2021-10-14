@@ -34,14 +34,14 @@ runs:
       run: |
 
         if [ "$RUNNER_OS" == "Windows" ]; then
-          curl https://www.ssl.com/download/29773/ --output CodeSignTool.zip
-          dir
           choco install javaruntime
-          7z x CodeSignTool.zip
           
-          dir
+          if [ ! -d "CodeSignTool-v1.2.0-windows" ]; then
+            curl https://www.ssl.com/download/29773/ --output CodeSignTool.zip
+            7z x CodeSignTool.zip
+          fi
+          
           cd CodeSignTool-v1.2.0-windows
-          dir
         else
           curl https://www.ssl.com/download/29764/ --output CodeSignTool.zip
           
