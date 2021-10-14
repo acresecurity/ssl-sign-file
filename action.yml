@@ -83,6 +83,9 @@ runs:
         fi
       shell: bash
     - name: Sign File(s) PWSH
+      env:
+        FILE_PATH: ${{ inputs.filepath }}
+        SSL_USERNAME: ${{ inputs.sslusername }}
       run: |
         Write-Host $Env:OS
         Write-Host "----------"
@@ -122,6 +125,3 @@ runs:
           # dir ..\
         }
       shell: pwsh
-  env:
-    FILE_PATH: ${{ inputs.filepath }}
-    SSL_USERNAME: ${{ inputs.sslusername }}
