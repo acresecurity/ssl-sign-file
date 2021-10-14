@@ -92,7 +92,7 @@ runs:
       run: |
         Write-Host $Env:RUNNER_OS
 
-        if ($Env:RUNNER_OS -eq "Windows*")
+        if ($Env:RUNNER_OS -eq "Windows")
         {
           cd CodeSignTool-v1.2.0-windows
           
