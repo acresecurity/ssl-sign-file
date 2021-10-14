@@ -36,8 +36,7 @@ runs:
 
         if [ "$RUNNER_OS" == "Windows" ]; then
           dir
-          # choco install javaruntime
-          # 7z e CodeSignTool.zip -oCodeSignTool-v1.2.0
+          choco install javaruntime
           7z x CodeSignTool.zip
 
         else
@@ -62,7 +61,6 @@ runs:
 
           printf "CLIENT_ID=qOUeZCCzSqgA93acB3LYq6lBNjgZdiOxQc-KayC3UMw\nOAUTH2_ENDPOINT=https://oauth-sandbox.ssl.com/oauth2/token\nCSC_API_ENDPOINT=https://cs-try.ssl.com\nTSA_URL=http://ts.ssl.com" > 'conf/code_sign_tool.properties'
           if [ "$RUNNER_OS" == "Windows" ]; then
-            choco install javaruntime
             .\CodeSignTool.bat sign -username="esigner_demo" -password="esignerDemo#1" -totp_secret="RDXYgV9qju+6/7GnMf1vCbKexXVJmUVr+86Wq/8aIGg=" -input_file_path="../miscellaneous/fake-file.ps1" -output_dir_path="ssl-output"
           else
             bash -eu CodeSignTool.sh sign -username="esigner_demo" -password="esignerDemo#1" -totp_secret="RDXYgV9qju+6/7GnMf1vCbKexXVJmUVr+86Wq/8aIGg=" -input_file_path="../miscellaneous/fake-file.ps1" -output_dir_path="ssl-output"
