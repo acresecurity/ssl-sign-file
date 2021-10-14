@@ -89,9 +89,9 @@ runs:
         dir env:
         Write-Host "----------"
         Write-Host "----------"
-        Get-ChildItem env:
+        Write-Host $Env:GITHUB_ENV
         Write-Host "----------"
-        Write-Host (Get-ChildItem env:)
+        dir $Env:GITHUB_ENV
         Write-Host "----------"
 
 
