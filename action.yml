@@ -97,7 +97,7 @@ runs:
           mkdir -p "ssl-output"
           dir
 
-          if ($inputs:istest -eq true)
+          if ($inputs:istest -eq $true)
           {
             # TESTING ONLY - Sandbox creds    
 
