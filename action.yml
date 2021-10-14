@@ -39,18 +39,21 @@ runs:
           if [ ! -d "CodeSignTool-v1.2.0-windows" ]; then
             curl https://www.ssl.com/download/29773/ --output CodeSignTool.zip
             7z x CodeSignTool.zip
+            
             cd CodeSignTool-v1.2.0-windows
-
             mkdir -p "ssl-output"
           fi
         else
-          curl https://www.ssl.com/download/29764/ --output CodeSignTool.zip
-          
           sudo apt-get install -y unzip
           sudo apt-get install -y default-jre
-          unzip -o CodeSignTool.zip
 
-          mkdir -p "ssl-output"
+          if [ ! -d "CodeSignTool-v1.2.0" ]; then
+            curl https://www.ssl.com/download/29764/ --output CodeSignTool.zip
+            unzip -o CodeSignTool.zip
+
+            cd CodeSignTool-v1.2.0
+            mkdir -p "ssl-output"
+          fi
         fi
 
       shell: bash
