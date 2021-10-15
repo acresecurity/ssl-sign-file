@@ -92,8 +92,7 @@ runs:
         Write-Host $Env:RUNNER_OS
         Write-Host "$Env:FILE_PATH"
         Write-Host '$Env:FILE_PATH'
-        Write-Host '$Env:SSL_USERNAME'
-        Write-Host '$Env:SSL_SECRET_PASSWORD'
+        Write-Host $Env:FILE_PATH
 
         if ($Env:RUNNER_OS -eq "Windows")
         {
@@ -110,7 +109,7 @@ runs:
           {
             # SINGLE FILE
             printf "CLIENT_ID=$Env:SSL_CLIENT_ID\nOAUTH2_ENDPOINT=https://login.ssl.com/oauth2/token\nCSC_API_ENDPOINT=https://cs.ssl.com\nTSA_URL=http://ts.ssl.com" > 'conf/code_sign_tool.properties'
-            .\CodeSignTool.bat sign -username=$Env:SSL_USERNAME -password='$Env:SSL_PASSWORD' -totp_secret='$Env:SSL_SECRET_PASSWORD' -input_file_path="$Env:FILE_PATH" -output_dir_path='ssl-output'
+            .\CodeSignTool.bat sign -username=$Env:SSL_USERNAME -password="$Env:SSL_PASSWORD" -totp_secret="$Env:SSL_SECRET_PASSWORD" -input_file_path="$Env:FILE_PATH" -output_dir_path='ssl-output'
 
           }
           Copy-Item -Path ".\ssl-output\*" -Destination "..\" -Recurse
