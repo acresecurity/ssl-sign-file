@@ -26,7 +26,6 @@ runs:
     - name: Add masks
       run: |
         echo "::add-mask::${{ inputs.sslusername }}"
-        echo "::add-mask::'${{ inputs.sslpassword }}'"
         echo "::add-mask::${{ inputs.sslsecretpassword }}"
         echo "::add-mask::totp_secret"
       shell: bash
