@@ -26,13 +26,12 @@ runs:
     - name: Add masks
       run: |
         echo "::add-mask::${{ inputs.sslusername }}"
-        echo "::add-mask::${{ inputs.sslpassword }}"
+        echo "::add-mask::'${{ inputs.sslpassword }}'"
         echo "::add-mask::${{ inputs.sslsecretpassword }}"
         echo "::add-mask::totp_secret"
       shell: bash
     - name: Download and Setup CodeSignTool
       run: |
-
         if [ "$RUNNER_OS" == "Windows" ]; then
           choco install javaruntime
           
@@ -55,7 +54,6 @@ runs:
             mkdir -p "ssl-output"
           fi
         fi
-
       shell: bash
     - name: Sign File(s) Bash
       run: |
