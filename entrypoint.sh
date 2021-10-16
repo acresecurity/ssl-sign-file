@@ -7,8 +7,10 @@ sslsecretpassword=$4
 sslclientid=$5
 istest=$6
 
+apt-get update
+
 echo "-----INStALLING CURL------"
-apt-get install curl
+apt-get -y install curl
 
 echo "Installing JavaRuntime Environment"
 apt-get install -y default-jre
