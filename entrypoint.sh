@@ -7,15 +7,15 @@ sslsecretpassword=$4
 sslclientid=$5
 istest=$6
 
-apt-get update
-
-echo "-----INStALLING CURL------"
-apt-get -y install curl
+apt-get -qq update
 
 echo "Installing JavaRuntime Environment"
 apt-get install -y default-jre
 
 if [ ! -d "CodeSignTool-v1.2.0" ]; then
+    echo "-----INSTALLING CURL------"
+    apt-get -y install curl
+
     echo "Installing unzip"
     apt-get install -y unzip
 
