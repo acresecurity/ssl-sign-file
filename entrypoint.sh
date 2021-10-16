@@ -7,12 +7,15 @@ sslsecretpassword=$4
 sslclientid=$5
 istest=$6
 
+apt-get update; 
+apt-get install curl
+
 echo "Installing JavaRuntime Environment"
-sudo apt-get install -y default-jre
+apt-get install -y default-jre
 
 if [ ! -d "CodeSignTool-v1.2.0" ]; then
     echo "Installing unzip"
-    sudo apt-get install -y unzip
+    apt-get install -y unzip
 
     echo "Downloading CodeSignTool"
     curl https://www.ssl.com/download/29764/ --output CodeSignTool.zip
@@ -39,5 +42,5 @@ fi
 
 echo "Copying Signed File to root"
 ls ssl-output/
-sudo cp -r ./ssl-output/* ../
+cp -r ./ssl-output/* ../
 
