@@ -10,7 +10,7 @@ istest=$6
 apt-get -qq update
 
 echo "Installing JavaRuntime Environment"
-apt-get install -y default-jre
+apt-get install -y -qq default-jre
 
 if [ ! -d "CodeSignTool-v1.2.0" ]; then
     echo "-----INSTALLING CURL------"
