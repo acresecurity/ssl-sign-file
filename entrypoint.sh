@@ -9,9 +9,6 @@ istest=$6
 
 apt-get -qq update
 
-echo "Installing apt-utils"
-apt-get install -y -qq apt-utils > /dev/null
-
 echo "Installing JavaRuntime Environment"
 apt-get install -y -qq default-jre > /dev/null
 
