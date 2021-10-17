@@ -40,7 +40,7 @@ if [ ${istest} = true ] ; then
 else
   # SINGLE FILE
   echo "Running Real UseCase"
-  printf "CLIENT_ID=${{ inputs.sslclientid }}\nOAUTH2_ENDPOINT=https://login.ssl.com/oauth2/token\nCSC_API_ENDPOINT=https://cs.ssl.com\nTSA_URL=http://ts.ssl.com" > 'conf/code_sign_tool.properties'
+  printf "CLIENT_ID=${ inputs.sslclientid }\nOAUTH2_ENDPOINT=https://login.ssl.com/oauth2/token\nCSC_API_ENDPOINT=https://cs.ssl.com\nTSA_URL=http://ts.ssl.com" > 'conf/code_sign_tool.properties'
   bash -eu CodeSignTool.sh sign -username="${sslusername}" -password="${sslpassword}"-totp_secret="${sslsecretpassword}" -input_file_path="${filepath}" -output_dir_path='ssl-output'
 fi
 
