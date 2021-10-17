@@ -36,7 +36,6 @@ if [ ${istest} = true ] ; then
   # TESTING ONLY - Sandbox creds
   echo "Running Test"
   printf "CLIENT_ID=${sslclientid}\nOAUTH2_ENDPOINT=https://oauth-sandbox.ssl.com/oauth2/token\nCSC_API_ENDPOINT=https://cs-try.ssl.com\nTSA_URL=http://ts.ssl.com" > 'conf/code_sign_tool.properties'
-  cat conf/code_sign_tool.properties
   bash -eu CodeSignTool.sh sign -username='esigner_demo' -password='esignerDemo#1' -totp_secret='RDXYgV9qju+6/7GnMf1vCbKexXVJmUVr+86Wq/8aIGg=' -input_file_path="${filepath}" -output_dir_path='ssl-output'
 else
   # SINGLE FILE
