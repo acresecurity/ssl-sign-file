@@ -12,8 +12,9 @@ apt-get -qq update
 echo "Installing JavaRuntime Environment"
 apt-get install -y -qq default-jre > /dev/null
 
+codeSignDir=$(ls | grep -w CodeSignTool-v*)
 
-if [ ! -d "CodeSignTool-v1.2.0" ]; then
+if [ -z "$codeSignDir" ] || [ ! -d ${codeSignDir} ]; then
 
     echo "-----INSTALLING CURL------"
     apt-get -y install curl
@@ -25,11 +26,24 @@ if [ ! -d "CodeSignTool-v1.2.0" ]; then
     curl https://www.ssl.com/download/29764/ --output CodeSignTool.zip
     echo "Extracting CodeSignTool"
     unzip -o CodeSignTool.zip
+    echo "Extracting Complete"
 
-    cd CodeSignTool-v1.2.0
+    codeSignDir=$(ls | grep -w CodeSignTool-v*)
+    echo "codeSignDirectory 1: ${codeSignDir}"
+
+    if [ -z "$codeSignDir" ] || [ ! -d ${codeSignDir} ]; then
+      echo "Unzipping to CodeSignTool-vFeenics"
+      unzip -o CodeSignTool.zip -d CodeSignTool-vFeenics
+    fi
+
+    codeSignDir=$(ls | grep -w CodeSignTool-v*)
+    echo "codeSignDirectory 2: ${codeSignDir}"
+
+    cd ${codeSignDir}
     mkdir -p "ssl-output"
 else
-    cd CodeSignTool-v1.2.0
+    codeSignDir=$(ls | grep -w CodeSignTool-v*)
+    cd ${codeSignDir}
 fi
 
 if [ ${istest} = true ] ; then
