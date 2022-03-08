@@ -23,7 +23,7 @@ if [ -z "$codeSignDir" ] || [ ! -d ${codeSignDir} ]; then
     apt-get install -y unzip
 
     echo "Downloading CodeSignTool"
-    curl https://www.ssl.com/download/29764/ --output CodeSignTool.zip
+    curl https://www.ssl.com/download/codesigntool-for-linux-and-macos/ --output CodeSignTool.zip
     echo "Extracting CodeSignTool"
     unzip -o CodeSignTool.zip
     echo "Extracting Complete"
@@ -38,6 +38,14 @@ if [ -z "$codeSignDir" ] || [ ! -d ${codeSignDir} ]; then
 
     codeSignDir=$(ls | grep -w CodeSignTool-v*)
     echo "codeSignDirectory 2: ${codeSignDir}"
+
+    if [ -z "$codeSignDir" ] || [ ! -d ${codeSignDir} ]; then
+      echo "Using locally stored code sign tool"
+      unzip -o LocalCodeSignTool.zip -d CodeSignTool-vLocalFeenics
+    fi
+
+    codeSignDir=$(ls | grep -w CodeSignTool-v*)
+    echo "codeSignDirectory 3: ${codeSignDir}"
 
     cd ${codeSignDir}
     mkdir -p "ssl-output"
