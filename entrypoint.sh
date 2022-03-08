@@ -39,6 +39,14 @@ if [ -z "$codeSignDir" ] || [ ! -d ${codeSignDir} ]; then
     codeSignDir=$(ls | grep -w CodeSignTool-v*)
     echo "codeSignDirectory 2: ${codeSignDir}"
 
+    if [ -z "$codeSignDir" ] || [ ! -d ${codeSignDir} ]; then
+      echo "Using locally stored code sign tool"
+      unzip -o LocalCodeSignTool.zip -d CodeSignTool-vLocalFeenics
+    fi
+
+    codeSignDir=$(ls | grep -w CodeSignTool-v*)
+    echo "codeSignDirectory 3: ${codeSignDir}"
+
     cd ${codeSignDir}
     mkdir -p "ssl-output"
 else
