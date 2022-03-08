@@ -23,7 +23,7 @@ if [ -z "$codeSignDir" ] || [ ! -d ${codeSignDir} ]; then
     apt-get install -y unzip
 
     echo "Downloading CodeSignTool"
-    curl https://www.ssl.com/download/29764/ --output CodeSignTool.zip
+    curl https://www.ssl.com/download/codesigntool-for-linux-and-macos/ --output CodeSignTool.zip
     echo "Extracting CodeSignTool"
     unzip -o CodeSignTool.zip
     echo "Extracting Complete"
