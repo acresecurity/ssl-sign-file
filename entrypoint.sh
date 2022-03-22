@@ -58,12 +58,12 @@ if [ ${istest} = true ] ; then
   # TESTING ONLY - Sandbox creds
   echo "Running Test"
   printf "CLIENT_ID=${sslclientid}\nOAUTH2_ENDPOINT=https://oauth-sandbox.ssl.com/oauth2/token\nCSC_API_ENDPOINT=https://cs-try.ssl.com\nTSA_URL=http://ts.ssl.com" > 'conf/code_sign_tool.properties'
-  bash -eu CodeSignTool.sh sign -username='esigner_demo' -password='esignerDemo#1' -totp_secret='RDXYgV9qju+6/7GnMf1vCbKexXVJmUVr+86Wq/8aIGg=' -input_file_path="${filepath}" -output_dir_path='ssl-output'
+  bash CodeSignTool.sh sign -username='esigner_demo' -password='esignerDemo#1' -totp_secret='RDXYgV9qju+6/7GnMf1vCbKexXVJmUVr+86Wq/8aIGg=' -input_file_path="${filepath}" -output_dir_path='ssl-output'
 else
   # SINGLE FILE
   echo "Running Real UseCase"
   printf "CLIENT_ID=${sslclientid}\nOAUTH2_ENDPOINT=https://login.ssl.com/oauth2/token\nCSC_API_ENDPOINT=https://cs.ssl.com\nTSA_URL=http://ts.ssl.com" > 'conf/code_sign_tool.properties'
-  bash -eu CodeSignTool.sh sign -username="${sslusername}" -password="${sslpassword}" -totp_secret="${sslsecretpassword}" -input_file_path="${filepath}" -output_dir_path='ssl-output'
+  bash CodeSignTool.sh sign -username="${sslusername}" -password="${sslpassword}" -totp_secret="${sslsecretpassword}" -input_file_path="${filepath}" -output_dir_path='ssl-output'
 fi
 
 echo "Copying Signed File to root"
