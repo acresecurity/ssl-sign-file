@@ -54,7 +54,7 @@ else
     cd ${codeSignDir}
 fi
 
-export CODE_SIGN_TOOL_PATH=null
+export CODE_SIGN_TOOL_PATH="."
 
 if [ ${istest} = true ] ; then
   # TESTING ONLY - Sandbox creds
