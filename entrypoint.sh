@@ -54,6 +54,8 @@ else
     cd ${codeSignDir}
 fi
 
+export CODE_SIGN_TOOL_PATH=null
+
 if [ ${istest} = true ] ; then
   # TESTING ONLY - Sandbox creds
   echo "Running Test"
